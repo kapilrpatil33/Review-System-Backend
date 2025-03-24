@@ -1,47 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Live Visitor Monitor</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 50px;
-      background-color: #f4f4f4;
-    }
-    h1 {
-      color: #333;
-    }
-    .counter {
-      font-size: 48px;
-      color: #4caf50;
-      margin-top: 20px;
-    }
-  </style>
+    <title>Live Visitor Monitor</title>
+    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
 </head>
 <body>
+    <h1>Live Visitors: <span id="visitorCount">0</span></h1>
 
-  <h1>Live Visitor Monitor</h1>
-  <div class="counter" id="visitorCount">Loading...</div>
-
-  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-<script src="realtimemonitoring.js"></script>
-  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-<script>
-    // Connect to your backend WebSocket server
-    const socket = io("https://trafficmonitorbackend.onrender.com");
-
-    // Log active visitors when updated
-    socket.on("updateCount", (count) => {
-        console.log("Current Active Visitors:", count);
-    });
-
-    // Automatically disconnect the user when they leave the page
-    // window.addEventListener("beforeunload", () => {
-    //     socket.disconnect();
-    // });
-</script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script>
+        // Connect to your backend WebSocket server
+        const socket = io("https://trafficmonitorbackend.onrender.com");
+    
+        // Log active visitors when updated
+        socket.on("updateCount", (count) => {
+            console.log("Current Active Visitors:", count);
+        });
+    
+        // Automatically disconnect the user when they leave the page
+        window.addEventListener("beforeunload", () => {
+            socket.disconnect();
+        });
+    </script>
 </body>
 </html>
