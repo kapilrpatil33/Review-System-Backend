@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Live Visitor Monitor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      color: #333;
+    }
+    .counter {
+      font-size: 48px;
+      color: #4caf50;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Live Visitor Monitor</h1>
+  <div class="counter" id="visitorCount">Loading...</div>
+
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  <script>
+    const socket = io();
+
+    socket.on("updateCount", (count) => {
+      document.getElementById("visitorCount").textContent = `Active Visitors: ${count}`;
+    });
+
+    // Optional disconnect simulation
+    // setTimeout(() => {
+    //   socket.disconnect();
+    //   console.log("Disconnected from server");
+    // }, 5000);
+  </script>
+</body>
+</html>
